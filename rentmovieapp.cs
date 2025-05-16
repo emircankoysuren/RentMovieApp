@@ -35,17 +35,17 @@ namespace RentMovieApp
 
                 connection = new SqlConnection(connectionF);
 
-                // bağlantıyı açıyoruz
+               
                 connection.Open();
 
-                // bağlantı başarılıysa bir mesaj kutusu gösteriyoruz
-                MessageBox.Show("Database connection is opened succesfully!"); // 
+               
+                MessageBox.Show("Database connection is opened succesfully!"); 
 
             }
             catch (Exception error)
             {
-                // bağlantı sırasında bir hata oluşursa hata mesajını gösteriyoruz
-                MessageBox.Show("Database connection failure: " + error.Message); // 
+               
+                MessageBox.Show("Database connection failure: " + error.Message); 
             }
         }
         #endregion
@@ -53,13 +53,13 @@ namespace RentMovieApp
         #region FUNCTION TOCLOSE
         private void CloseConnection()
         {
-            // bağlantı nesnesi var ve açık ise
+           
             if (connection != null && connection.State == ConnectionState.Open)
             {
-                // Bağlantıyı kapat
+               
                 connection.Close();
 
-                // bağlantı kapatılılınca bir mesaj kutusu gösteriyoruz
+                
                 MessageBox.Show("Database connection is closed succesfully!");
             }
         }
@@ -79,30 +79,30 @@ namespace RentMovieApp
         {
             try
             {
-                OpenConnection(); // bağlantıyı açıyoruz
+                OpenConnection(); 
 
-                // sql'den members tablosunun verilerinin hepsini çekiyoruz
+                
                 string query = "SELECT * FROM [dbo].[MEMBERS]";
 
-                // sql Komutu oluştur
+               
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // data Adapter oluşturuyoruz
+                    
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        // veriyi tutacak bir DataTable oluşturuyoruz
+                       
                         DataTable dataTable = new DataTable();
 
-                        // data adapter ile DataTable'ı doldur
+                       
                         adapter.Fill(dataTable);
 
-                        // dgv'in veri kaynağını ayarlayarak veriyi göster
+                       
                         Members.DataSource = dataTable;
                        
                         
                         if (Members.Columns.Contains("MembershipDate")) 
                         {
-                            // sadece Tarih göstermek için:
+                           
                             Members.Columns["MembershipDate"].DefaultCellStyle.Format = "dd.MM.yyyy";
                            
                         }
@@ -536,7 +536,7 @@ namespace RentMovieApp
                     {
                         
                         command.Parameters.AddWithValue("@MovieName", baslik);
-                        command.Parameters.AddWithValue("@Director", (object)yonetmen ?? DBNull.Value); // Yönetmen boşsa NULL olabilir
+                        command.Parameters.AddWithValue("@Director", (object)yonetmen ?? DBNull.Value); 
                         command.Parameters.AddWithValue("@PublicationDate", yil);
                         command.Parameters.AddWithValue("@Stock ", stokAdedi);
                         command.Parameters.AddWithValue("@Rent", kiradaAdet);
@@ -688,7 +688,7 @@ namespace RentMovieApp
                     connection.Open(); 
 
                  
-                    string query = "SELECT MemberID, Name + ' ' + Surname AS FullName FROM [dbo].[MEMBERS]"; // Tablo adının doğru olduğundan emin olun
+                    string query = "SELECT MemberID, Name + ' ' + Surname AS FullName FROM [dbo].[MEMBERS]";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -724,7 +724,7 @@ namespace RentMovieApp
                 {
                     connection.Open();
                     
-                    string query = "SELECT MovieID, MovieName FROM [dbo].[MOVIE] WHERE Stock > Rent"; //
+                    string query = "SELECT MovieID, MovieName FROM [dbo].[MOVIE] WHERE Stock > Rent"; 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
